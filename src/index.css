@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-hotel-cream text-hotel-dark antialiased selection:bg-hotel-gold/30;
+  }
+}
