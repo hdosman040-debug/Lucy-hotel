@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, X, Phone, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { Menu, X, Calendar } from 'lucide-react';
 import { hotelInfo } from '../data/hotelInfo';
 
 export default function Navbar() {
