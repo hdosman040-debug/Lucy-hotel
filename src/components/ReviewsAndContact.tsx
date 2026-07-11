@@ -1,5 +1,5 @@
-import React from 'react';
-import { Star, Phone, MapPin, MessageSquare, Send } from 'lucide-react';
+
+import { Star, Phone, MapPin, MessageSquare } from 'lucide-react';
 import { hotelInfo } from '../data/hotelInfo';
 
 export default function ReviewsAndContact() {

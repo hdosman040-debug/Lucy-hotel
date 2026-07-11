@@ -1,59 +1,89 @@
-import { useState } from 'react';
-import { Menu, X, Calendar } from 'lucide-react';
-import { hotelInfo } from '../data/hotelInfo';
+import React, { useState, useEffect } from 'react';
+import { Menu, X, Phone } from 'lucide-react';
+import { hotelConfig } from '../config/hotelConfig';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { brand, contact } = hotelConfig;
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Rooms', href: '#rooms' },
-    { name: 'Dining', href: '#dining' },
-    { name: 'Reviews', href: '#reviews' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed w-full z-50 bg-[#11141A]/95 backdrop-blur-md border-b border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0 flex flex-col">
-            <span className="text-xl font-bold tracking-widest text-[#C5A880] uppercase">
-              {hotelInfo.name}
+    <>
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled 
+            ? 'bg-[#11141A]/90 backdrop-blur-md border-b border-white/5 py-4' 
+            : 'bg-gradient-to-b from-[#11141A]/80 to-transparent py-6'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          
+          {/* Left Side: Brand Text Title */}
+          <a href="#home" className="flex flex-col items-start select-none">
+            <span className="text-lg font-serif tracking-[0.25em] text-white uppercase font-medium">
+              {brand.name}
             </span>
-            <span className="text-[10px] text-gray-400 tracking-wider -mt-1">
-              {hotelInfo.location}
+            <span className="text-[9px] tracking-[0.15em] text-[#C5A880] font-mono font-light uppercase">
+              {contact.city}
             </span>
+          </a>
+
+          {/* Center Navigation Links */}
+          <div className="hidden md:flex items-center space-x-10 text-[11px] uppercase tracking-[0.2em] font-medium text-slate-300">
+            <a href="#home" className="hover:text-[#C5A880] transition-colors">Home</a>
+            <a href="#rooms" className="hover:text-[#C5A880] transition-colors">Suites</a>
+            <a href="#dining" className="hover:text-[#C5A880] transition-colors">Dining</a>
+            <a href="#location" className="hover:text-[#C5A880] transition-colors">Location</a>
           </div>
-          <div className="hidden md:flex space-x-8 font-medium tracking-wide">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="hover:text-[#C5A880] transition-colors duration-200 text-sm uppercase">
-                {link.name}
-              </a>
-            ))}
-          </div>
-          <div className="hidden md:block">
-            <a href="#booking" className="bg-[#C5A880] hover:bg-[#A38456] text-[#11141A] font-semibold px-5 py-2.5 rounded-sm transition-all duration-200 text-sm uppercase tracking-wider flex items-center gap-2">
-              <Calendar size={16} />
-              Book Now
+
+          {/* Right Side: Action Button & Local Logo */}
+          <div className="flex items-center space-x-4">
+            <a
+              href={`tel:${contact.phone}`}
+              className="hidden sm:flex items-center space-x-2 text-xs uppercase tracking-widest font-mono text-[#E2C9A1] bg-white/5 border border-white/10 px-4 py-2 hover:bg-[#C5A880] hover:text-[#11141A] transition-all duration-300"
+            >
+              <Phone className="w-3 h-3" />
+              <span>Call Desk</span>
             </a>
-          </div>
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+
+            {/* Local Logo Circle */}
+            <div className="w-10 h-10 rounded-full border border-[#C5A880]/30 bg-[#11141A] overflow-hidden flex items-center justify-center shrink-0">
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Mobile Menu Trigger */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden text-white focus:outline-none"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+
         </div>
-      </div>
-      {isOpen && (
-        <div className="md:hidden bg-[#1E232E] border-b border-white/10 px-4 pt-2 pb-6 space-y-3 shadow-xl">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="block px-3 py-2.5 rounded-md text-base font-medium hover:bg-[#11141A] hover:text-[#C5A880] transition-all">
-              {link.name}
-            </a>
-          ))}
+      </nav>
+
+      {/* Mobile Drawer Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-[#11141A] flex flex-col justify-center items-center space-y-8 text-center md:hidden">
+          <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-serif text-white tracking-widest">HOME</a>
+          <a href="#rooms" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-serif text-white tracking-widest">SUITES</a>
+          <a href="#dining" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-serif text-white tracking-widest">DINING</a>
+          <a href="#location" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-serif text-white tracking-widest">LOCATION</a>
         </div>
       )}
-    </nav>
+    </>
   );
 }

@@ -1,28 +1,28 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import HeroSection from './features/home/HeroSection';
 import RoomsSection from './features/rooms/RoomsSection';
 import DiningSection from './features/restaurant/DiningSection';
-import BookingSection from './features/booking/BookingSection';
-import ReviewsAndContact from './components/ReviewsAndContact';
+import BookingEngine from './features/booking/BookingEngine';
+import LocationSection from './components/LocationSection';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FBF9F6]">
-      {/* Global Navigation Header */}
+    <div className="min-h-screen bg-[#11141A] text-white selection:bg-[#C5A880] selection:text-[#11141A] antialiased scroll-smooth">
+      {/* Global Brand Header Navigation */}
       <Navbar />
 
-      {/* Fully Configured Product Demo Viewport */}
-      <main className="flex-grow pt-20">
+      {/* Main Structural Layout Sequence */}
+      <main>
         <HeroSection />
         <RoomsSection />
         <DiningSection />
-        <BookingSection />
-        <ReviewsAndContact />
+        <BookingEngine />
+        <LocationSection />
       </main>
 
-      {/* Global Sticky Footer */}
+      {/* Global Brand Closure Footer */}
       <Footer />
     </div>
   );

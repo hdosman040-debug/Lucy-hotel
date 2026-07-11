@@ -1,81 +1,102 @@
 import React from 'react';
-import { Users, Bed, Check, Calendar } from 'lucide-react';
-import { demoRooms } from '../../data/rooms';
+import { Users, Bed, Maximize, ArrowRight } from 'lucide-react';
+import { hotelConfig } from '../../config/hotelConfig';
 
 export default function RoomsSection() {
+  const { rooms } = hotelConfig;
+
   return (
-    <section id="rooms" className="py-20 bg-white border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="rooms" className="bg-[#11141A] py-24 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
         
-        {/* Module Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <span className="text-[#C5A880] text-xs font-bold tracking-widest uppercase block">
-            Luxury Accommodations
+        {/* Section Header */}
+        <div className="max-w-3xl mb-16 space-y-4">
+          <span className="text-[#C5A880] text-xs font-serif tracking-[0.3em] block uppercase">
+            ✦ ACCOMMODATIONS
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#11141A] uppercase tracking-tight">
-            Our Rooms & Suites
+          <h2 className="text-3xl md:text-5xl font-serif tracking-wide text-white leading-tight">
+            Sanctuaries of Absolute Comfort
           </h2>
-          <div className="h-1 w-16 bg-[#C5A880] mx-auto rounded-full"></div>
-          <p className="text-sm text-gray-500">
-            Handcrafted sanctuaries tailored to provide absolute peace, comfort, and state-of-the-art utility.
+          <p className="text-sm md:text-md text-slate-400 font-light max-w-xl leading-relaxed tracking-wide">
+            Each suite is an architectural masterpiece designed to provide complete structural isolation, premium acoustics, and tailored panoramic viewpoints.
           </p>
         </div>
 
-        {/* Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {demoRooms.map((room) => (
-            <div key={room.id} className="bg-[#FBF9F6] border border-gray-200 rounded-sm overflow-hidden flex flex-col hover:shadow-lg transition-all duration-300">
-              
-              {/* Premium Image Placeholder Grid */}
-              <div className="h-48 bg-gradient-to-br from-[#1E232E] to-[#11141A] p-6 flex flex-col justify-between relative text-white">
-                <div className="absolute inset-0 bg-black/20"></div>
-                <div className="z-10 bg-[#C5A880] text-[#11141A] text-xs font-bold px-3 py-1 rounded-sm tracking-wider uppercase self-start shadow-sm">
-                  Demo Space
+        {/* Room Luxury Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {rooms.map((room) => (
+            <div
+              key={room.id}
+              className="bg-white/[0.02] border border-white/5 flex flex-col group hover:border-[#C5A880]/20 transition-all duration-500 overflow-hidden"
+            >
+              {/* Media Asset Window */}
+              <div className="relative h-72 md:h-80 w-full overflow-hidden bg-black/40">
+                {/* Featured Luxury Indicator Badge */}
+                {room.isFeatured && (
+                  <div className="absolute top-4 left-4 z-20 bg-[#C5A880] text-[#11141A] text-[10px] uppercase tracking-[0.2em] font-bold px-3 py-1.5 shadow-md">
+                    Featured Suite
+                  </div>
+                )}
+                
+                <img
+                  src={room.imageUrl}
+                  alt={room.title}
+                  className="w-full h-full object-cover transform-gpu group-hover:scale-105 transition-transform duration-700 ease-out"
+                  onError={(e) => {
+                    // Standard structural canvas placeholder if local file is missing during mobile testing
+                    e.currentTarget.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='100%' height='100%' fill='%231E293B'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='24' fill='%23C5A880'>Luxury Suite Image Layer</text></svg>";
+                  }}
+                />
+                {/* Linear darkening shadow overlay block for soft image matching */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#11141A] via-transparent to-transparent opacity-60" />
+              </div>
+
+              {/* Specification Context Block */}
+              <div className="p-8 flex-grow flex flex-col justify-between space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="text-xl font-serif text-white tracking-wide group-hover:text-[#E2C9A1] transition-colors duration-300">
+                      {room.title}
+                    </h3>
+                    <div className="text-right shrink-0">
+                      <span className="text-xl font-serif text-[#C5A880]">${room.pricePerNight}</span>
+                      <span className="text-[10px] text-slate-500 block uppercase tracking-widest mt-0.5">/ night</span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed">
+                    {room.description}
+                  </p>
                 </div>
-                <div className="z-10 mt-auto">
-                  <span className="text-2xl font-black text-[#C5A880]">{room.pricePerNight} ETB</span>
-                  <span className="text-xs text-gray-300 block">per night (est.)</span>
+
+                {/* Micro-Attribute Icon Grid */}
+                <div className="grid grid-cols-3 gap-2 py-4 border-t border-b border-white/5 text-slate-300">
+                  <div className="flex items-center space-x-2">
+                    <Users className="w-4 h-4 text-[#C5A880] shrink-0" />
+                    <span className="text-xs font-light tracking-wide">{room.capacity} Guests</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Bed className="w-4 h-4 text-[#C5A880] shrink-0" />
+                    <span className="text-xs font-light tracking-wide truncate">{room.bedType.split(' ').slice(1).join(' ')}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Maximize className="w-4 h-4 text-[#C5A880] shrink-0" />
+                    <span className="text-xs font-light tracking-wide">{room.size}</span>
+                  </div>
+                </div>
+
+                {/* Action CTA Block */}
+                <div className="pt-2">
+                  <a
+                    href="#booking"
+                    className="w-full group bg-white/5 hover:bg-[#C5A880] text-white hover:text-[#11141A] text-xs uppercase tracking-widest py-4 font-bold flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-transparent"
+                  >
+                    <span>Reserve Accommodation</span>
+                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" />
+                  </a>
                 </div>
               </div>
 
-              {/* Card Body Details */}
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-6">
-                <div className="space-y-3">
-                  <h3 className="text-lg font-bold text-[#11141A] uppercase tracking-wide">{room.name}</h3>
-                  <p className="text-xs text-gray-600 leading-relaxed">{room.description}</p>
-                </div>
-
-                {/* Core Specifications Bar */}
-                <div className="grid grid-cols-2 gap-4 py-3 border-t border-b border-gray-200 text-xs text-gray-700 font-medium">
-                  <div className="flex items-center gap-2">
-                    <Users size={16} className="text-[#C5A880]" />
-                    <span>Max Guests: {room.maxGuests}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Bed size={16} className="text-[#C5A880]" />
-                    <span>{room.bedType}</span>
-                  </div>
-                </div>
-
-                {/* Amenities Sublist */}
-                <div className="space-y-1.5">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400 block">Room Features:</span>
-                  <div className="grid grid-cols-2 gap-y-1 gap-x-2">
-                    {room.amenities.map((amenity, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600">
-                        <Check size={12} className="text-[#C5A880] shrink-0" />
-                        <span className="truncate">{amenity}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Card Action */}
-                <a href="#booking" className="w-full text-center bg-transparent border border-[#C5A880] text-[#11141A] hover:bg-[#C5A880] hover:text-white transition-all font-bold py-2.5 rounded-sm text-xs uppercase tracking-wider block">
-                  Select Room
-                </a>
-
-              </div>
             </div>
           ))}
         </div>
