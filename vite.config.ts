@@ -14,3 +14,4 @@ export default defineConfig({
     entries: ['./index.html']
   }
 });
+# Force rebuild for new Netlify account
