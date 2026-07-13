@@ -1,75 +1,58 @@
 import React from 'react';
-import { MapPin, Compass, Navigation } from 'lucide-react';
-import { hotelConfig } from '../config/hotelConfig';
+import { MapPin, Phone, Compass } from 'lucide-react';
 
 export default function LocationSection() {
-  const { contact, attractions } = hotelConfig;
-
   return (
-    <section id="location" className="bg-[#11141A] py-24 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Informational Attraction Space */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <span className="text-[#C5A880] text-xs font-serif tracking-[0.3em] block uppercase">
-                ✦ THE NEIGHBORHOOD
-              </span>
-              <h2 className="text-3xl md:text-5xl font-serif tracking-wide text-white leading-tight">
-                An Historic Sanctuary
-              </h2>
-              <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed">
-                Nestled beautifully in {contact.city}, {contact.region}, our property frames historical pathways while maintaining convenient connectivity.
-              </p>
-            </div>
+    <section id="location" className="py-24 bg-[#11141A] text-white border-t border-white/[0.05]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5 space-y-6">
+            <span className="text-[#C5A880] font-semibold text-xs tracking-widest uppercase block">
+              Regional Location Data
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-white">
+              Settle In The Center Of Dessie
+            </h2>
+            <div className="w-16 h-0.5 bg-[#C5A880]" />
+            <p className="text-sm text-gray-400 font-light leading-relaxed">
+              Lucy Hotel is perfectly situated to enable rapid business access to regional management hubs while acting as an ideal base for local historical tours in Wollo.
+            </p>
 
-            {/* Attractions Loop */}
-            <div className="space-y-4">
-              {attractions.map((attraction) => (
-                <div 
-                  key={attraction.id} 
-                  className="bg-white/[0.01] border border-white/5 p-5 flex gap-4 items-start hover:border-[#C5A880]/20 transition-all duration-300"
-                >
-                  <div className="bg-[#C5A880]/10 p-2.5 shrink-0">
-                    <Compass className="w-4 h-4 text-[#C5A880]" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between items-baseline gap-2 mb-1">
-                      <h4 className="text-sm font-medium text-white tracking-wide">{attraction.title}</h4>
-                      <span className="text-[10px] font-mono text-[#C5A880] shrink-0 uppercase tracking-widest bg-white/5 px-2 py-0.5">{attraction.distance}</span>
-                    </div>
-                    <p className="text-xs text-slate-400 font-light leading-relaxed">{attraction.description}</p>
-                  </div>
+            <div className="space-y-4 pt-4 text-xs font-light tracking-wide">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#C5A880] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white text-sm">Physical Address</p>
+                  <p className="text-gray-400 mt-0.5">Main Commercial Avenue, Dessie, Wollo, Ethiopia</p>
                 </div>
-              ))}
-            </div>
-
-            {/* Address Context Card */}
-            <div className="pt-4 border-t border-white/5 flex items-start space-x-3 text-slate-300">
-              <MapPin className="w-5 h-5 text-[#C5A880] shrink-0 mt-0.5" />
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-widest block text-[#E2C9A1] mb-1">Physical Address</span>
-                <p className="text-xs font-light tracking-wide">{contact.address}, {contact.city}, {contact.region}</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-[#C5A880] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white text-sm">Concierge Channel</p>
+                  <p className="text-gray-400 mt-0.5">+251 911 234 567</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Compass className="w-5 h-5 text-[#C5A880] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white text-sm">Proximal Landmarks</p>
+                  <p className="text-gray-400 mt-0.5">5 minutes from central municipal buildings; short transit links to regional travel checkpoints.</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Luxury Frame Container for Map Sandbox */}
-          <div className="lg:col-span-7 w-full h-96 lg:h-[480px] bg-white/[0.02] border border-white/5 p-2 group hover:border-white/10 transition-colors duration-500">
-            <div className="w-full h-full bg-[#1e293b]/20 relative overflow-hidden">
-              <iframe
-                title="Lucy Hotel Premium Location Matrix"
-                src={contact.googleMapEmbedUrl}
-                className="w-full h-full border-0 grayscale invert opacity-75 contrast-125 group-hover:opacity-90 transition-opacity duration-500"
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+          <div className="lg:col-span-7 w-full h-96 bg-white/[0.01] border border-white/5 rounded-sm overflow-hidden relative flex items-center justify-center text-center p-6">
+            <div className="space-y-3">
+              <MapPin className="w-8 h-8 text-[#C5A880] mx-auto animate-bounce" />
+              <p className="text-sm font-serif font-bold text-white">Interactive Mapping System Container</p>
+              <p className="text-xs text-gray-500 max-w-sm mx-auto font-light leading-relaxed">
+                [ Local SEO Map Integrated Here to target localized Ethiopian search engine discovery without blocking client thread processing speed ]
+              </p>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

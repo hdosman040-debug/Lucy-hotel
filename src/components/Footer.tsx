@@ -1,67 +1,29 @@
 import React from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
-import { hotelConfig } from '../config/hotelConfig';
 
 export default function Footer() {
-  const { brand, contact } = hotelConfig;
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-[#11141A] border-t border-white/5 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-white/5">
-          {/* Identity Block */}
-          <div className="space-y-4">
-            <span className="text-xl font-serif tracking-[0.2em] text-white block">
-              {brand.name.toUpperCase()}
+    <footer className="bg-[#11141A] text-white py-12 border-t border-white/[0.05]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-b border-white/[0.05] pb-8 mb-8">
+          <div>
+            <span className="text-lg font-serif font-bold tracking-widest text-white">
+              LUCY <span className="text-[#C5A880]">HOTEL</span>
             </span>
-            <p className="text-xs text-slate-400 font-light max-w-sm leading-relaxed">
-              A high-end hospitality destination blending premium architectural prestige with authentic Wollo cultural heritage.
+            <p className="text-xs text-gray-400 font-light mt-1">
+              Elevating premium hospitality parameters across Dessie, Wollo.
             </p>
           </div>
-
-          {/* Quick Anchor Links */}
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.2em] text-[#C5A880] font-semibold">
-              Navigation
-            </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs text-slate-400 font-light">
-              <a href="#home" className="hover:text-white transition-colors">Home</a>
-              <a href="#rooms" className="hover:text-white transition-colors">Rooms & Suites</a>
-              <a href="#dining" className="hover:text-white transition-colors">Fine Dining</a>
-              <a href="#location" className="hover:text-white transition-colors">Location</a>
-            </div>
-          </div>
-
-          {/* Contact Direct Loop */}
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.2em] text-[#C5A880] font-semibold">
-              Inquiries & Concierge
-            </h4>
-            <div className="space-y-2.5 text-xs text-slate-300 font-light">
-              <a href={`tel:${contact.phone}`} className="flex items-center space-x-2.5 hover:text-white transition-colors">
-                <Phone className="w-3.5 h-3.5 text-[#C5A880]" />
-                <span>{contact.phone}</span>
-              </a>
-              <a href={`mailto:${contact.email}`} className="flex items-center space-x-2.5 hover:text-white transition-colors">
-                <Mail className="w-3.5 h-3.5 text-[#C5A880]" />
-                <span className="truncate">{contact.email}</span>
-              </a>
-              <div className="flex items-center space-x-2.5 text-slate-400">
-                <MapPin className="w-3.5 h-3.5 text-[#C5A880] shrink-0" />
-                <span className="truncate">{contact.address}, {contact.city}</span>
-              </div>
-            </div>
+          <div className="flex gap-6 text-xs text-gray-400 font-light">
+            <a href="#home" className="hover:text-[#C5A880] transition-colors">Top</a>
+            <a href="#rooms" className="hover:text-[#C5A880] transition-colors">Suites</a>
+            <a href="#amenities" className="hover:text-[#C5A880] transition-colors">Amenities</a>
+            <a href="#location" className="hover:text-[#C5A880] transition-colors">Location</a>
           </div>
         </div>
-
-        {/* Closing Legal Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 uppercase tracking-widest font-mono">
-          <span>© {currentYear} {brand.name}. All Rights Reserved.</span>
-          <span>Crafted for Luxury Experience</span>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-gray-500 font-light">
+          <p>© 2026 Lucy Hotel. All rights reserved across regional governance networks.</p>
+          <p className="tracking-wide">Designed for Maximum Trust Optimization.</p>
         </div>
-
       </div>
     </footer>
   );

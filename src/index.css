@@ -7,3 +7,21 @@
     @apply bg-hotel-cream text-hotel-dark antialiased selection:bg-hotel-gold/30;
   }
 }
+
+/* Premium Room Modal Animation Utilities */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Luxury Typography Line Clamp Optimization */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}

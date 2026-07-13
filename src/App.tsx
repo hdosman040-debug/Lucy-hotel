@@ -1,29 +1,25 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HeroSection from './features/home/HeroSection';
-import RoomsSection from './features/rooms/RoomsSection';
-import DiningSection from './features/restaurant/DiningSection';
-import BookingEngine from './features/booking/BookingEngine';
-import LocationSection from './components/LocationSection';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Rooms from './pages/Rooms';
+import Dining from './pages/Dining';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#11141A] text-white selection:bg-[#C5A880] selection:text-[#11141A] antialiased scroll-smooth">
-      {/* Global Brand Header Navigation */}
-      <Navbar />
-
-      {/* Main Structural Layout Sequence */}
-      <main>
-        <HeroSection />
-        <RoomsSection />
-        <DiningSection />
-        <BookingEngine />
-        <LocationSection />
-      </main>
-
-      {/* Global Brand Closure Footer */}
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-[#11141A] flex flex-col font-sans selection:bg-[#C5A880] selection:text-[#11141A]">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/dining" element={<Dining />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
