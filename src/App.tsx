@@ -12,7 +12,7 @@ export default function App() {
       <div className="min-h-screen bg-[#11141A] flex flex-col font-sans selection:bg-amber-500 selection:text-[#11141A]">
         {/* Persistent Shared Luxury Navigation Header */}
         <Navbar />
-        
+
         {/* Main Content Multi-Page Routing Matrix */}
         <main className="flex-grow">
           <Routes>
@@ -21,7 +21,7 @@ export default function App() {
             <Route path="/dining" element={<RouteSwitchWrapper component={<Dining />} />} />
           </Routes>
         </main>
-        
+
         {/* Persistent Shared Project Footer */}
         <Footer />
       </div>
