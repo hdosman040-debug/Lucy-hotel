@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "መነሻ",
+    "rooms": "ክፍሎች",
+    "dining": "ምግብና መጠጥ",
+    "experiences": "ልምዶች",
+    "gallery": "ማዕከለ-ስዕላት",
+    "contact": "እውቂያ",
+    "bookNow": "አሁኑኑ ያስይዙ"
+  },
+  "hero": {
+    "title": "ሉሲ ሆቴል",
+    "subtitle": "ቆይታዎን ያሳድጉ",
+    "description": "በደሴ ከተማ እምብርት ውስጥ ከእውነተኛ የወሎ እንግዳ ተቀባይነት ጋር የተዋሃደውን ከፍተኛ ዘመናዊ የቅንጦት ሁኔታ ይለማመዱ።",
+    "ctaBook": "ቅድመ-ይሁንታ ያስይዙ",
+    "ctaExplore": "አገልግሎቶችን ይመልከቱ"
+  },
+  "rooms": {
+    "sectionTitle": "የቅንጦት ማረፊያችን",
+    "sectionSubtitle": "ምርጥ ክፍሎች",
+    "viewDetails": "ዝርዝር ይመልከቱ",
+    "bookRoom": "በዋትስአፕ ያስይዙ",
+    "amenitiesLabel": "የክፍል ውስጥ አገልግሎቶች"
+  },
+  "amenities": {
+    "title": "ዓለም አቀፍ አገልግሎቶች",
+    "pool": "የዋና ገንዳ",
+    "gym": "ዘመናዊ ጂምናዚየም",
+    "sauna": "ስቲምና ሳውና",
+    "restaurant": "ምርጥ ሬስቶራንት (የወሎ እና ዓለም አቀፍ ምግቦች)",
+    "conference": "የስብሰባ አዳራሽ"
+  },
+  "reviews": {
+    "title": "የእንግዶች ምስክርነት",
+    "subtitle": "የተከበሩ እንግዶቻችን ምን ይላሉ?"
+  },
+  "footer": {
+    "rights": "መብቱ በህግ የተጠበቀ ነው።",
+    "location": "ደሴ፣ ወሎ፣ ኢትዮጵያ"
+  }
+}

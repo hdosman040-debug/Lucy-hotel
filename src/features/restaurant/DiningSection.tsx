@@ -10,6 +10,10 @@ export default function DiningSection() {
 
   const currentCategory = dining[activeTab];
 
+  if (!currentCategory) {
+    return null;
+  }
+
   return (
     <section id="dining" className="bg-[#11141A] py-24 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">

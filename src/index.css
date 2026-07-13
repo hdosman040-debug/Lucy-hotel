@@ -3,25 +3,80 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-hotel-cream text-hotel-dark antialiased selection:bg-hotel-gold/30;
+    @apply bg-hotel-obsidian text-[#D1D5DB] antialiased selection:bg-hotel-gold/30 selection:text-white;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Premium Room Modal Animation Utilities */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+/* Luxury Fade Animation */
+@keyframes luxuryFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-luxury-fade {
+  animation: luxuryFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Luxury Typography Line Clamp Optimization */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D11;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5A88040;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A88080;
+}
+
+
+/* Firefox scrollbar support */
+html {
+  scrollbar-color: #C5A88040 #0B0D11;
+}
+
+
+/* Keyboard Accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #C5A880;
+  outline-offset: 4px;
+}
+
+
+/* Amharic Typography */
+html[lang="am"] body {
+  font-family: 'Noto Sans Ethiopic', 'Abyssinica SIL', system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

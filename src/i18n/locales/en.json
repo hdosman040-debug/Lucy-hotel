@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "dining": "Dining",
+    "experiences": "Experiences",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "title": "LUCY HOTEL",
+    "subtitle": "Elevate Your Stay",
+    "description": "Experience premium modern luxury infused with authentic Wollo hospitality in the heart of Dessie, Ethiopia.",
+    "ctaBook": "Reserve Luxury",
+    "ctaExplore": "Explore Amenities"
+  },
+  "rooms": {
+    "sectionTitle": "Our Luxury Sanctuary",
+    "sectionSubtitle": "Exquisite Accommodations",
+    "viewDetails": "View Details",
+    "bookRoom": "Book via WhatsApp",
+    "amenitiesLabel": "In-room Amenities"
+  },
+  "amenities": {
+    "title": "World-Class Amenities",
+    "pool": "Swimming Pool",
+    "gym": "Modern Gymnasium",
+    "sauna": "Steam & Sauna",
+    "restaurant": "Fine Dining (Wollo & International)",
+    "conference": "Conference Hall"
+  },
+  "reviews": {
+    "title": "Guest Testimonials",
+    "subtitle": "What Our Valued Guests Say"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "location": "Dessie, Wollo, Ethiopia"
+  }
+}

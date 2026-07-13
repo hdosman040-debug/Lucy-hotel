@@ -1,149 +1,388 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, Calendar, ChevronDown } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Calendar } from 'lucide-react';
 
-export default function Navbar() {
+import { LanguageSwitcher } from './LanguageSwitcher';
+import hotelConfig from '../config/hotelConfig';
+
+
+const Navbar: React.FC = () => {
+
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Structured menu configurations routing seamlessly across core paths
-  const services = [
-    { name: 'Rooms', path: '/rooms', isHash: false },
-    { name: 'Food and Restaurant', path: '/dining', isHash: false },
-    { name: 'Meeting and Conference', path: '/#meeting-and-conference', isHash: true },
-    { name: 'Bar', path: '/#bar', isHash: true },
-    { name: 'Free WiFi', path: '/#free-wifi', isHash: true }
+  const location = useLocation();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener(
+      'scroll',
+      handleScroll,
+      { passive: true }
+    );
+
+    return () => {
+      window.removeEventListener(
+        'scroll',
+        handleScroll
+      );
+    };
+
+  }, []);
+
+
+
+  const safeT = (
+    key: string,
+    fallback: string
+  ) => {
+
+    const value = t(key);
+
+    return value === key ? fallback : value;
+
+  };
+
+
+
+  const scrollToSection = (id: string) => {
+
+    requestAnimationFrame(() => {
+
+      document
+        .getElementById(id)
+        ?.scrollIntoView({
+          behavior: 'smooth'
+        });
+
+    });
+
+  };
+
+
+
+  const handleNavigation = (
+    path: string,
+    anchor?: string
+  ) => {
+
+    setIsOpen(false);
+
+    if (anchor) {
+
+      if (location.pathname !== "/") {
+
+        navigate("/");
+
+        setTimeout(() => {
+          scrollToSection(anchor);
+        }, 300);
+
+      } else {
+
+        scrollToSection(anchor);
+
+      }
+
+      return;
+    }
+
+    navigate(path);
+
+  };
+
+
+
+  const navItems = [
+
+    {
+      label: safeT("nav.home", "Home"),
+      path: "/"
+    },
+
+    {
+      label: safeT("nav.rooms", "Suites"),
+      path: "/rooms"
+    },
+
+    {
+      label: safeT("nav.dining", "Dining"),
+      path: "/dining"
+    },
+
+    {
+      label: safeT("nav.experiences", "Experiences"),
+      path: "/",
+      anchor: "experiences"
+    },
+
+    {
+      label: safeT("nav.gallery", "Gallery"),
+      path: "/",
+      anchor: "gallery"
+    },
+
+    {
+      label: safeT("nav.contact", "Contact"),
+      path: "/",
+      anchor: "contact"
+    },
+
   ];
 
+
+
   return (
-    <nav className="bg-[#11141A] text-white sticky top-0 z-50 border-b border-gray-800">
+
+    <nav
+      aria-label="Main Navigation"
+      className={`
+        fixed top-0 left-0 w-full z-50
+        transition-all duration-500 border-b
+
+        ${
+          scrolled
+          ?
+          "bg-hotel-obsidian/95 backdrop-blur-md py-4 border-hotel-gold/15 shadow-2xl"
+          :
+          "bg-transparent py-6 border-white/[0.05]"
+        }
+      `}
+    >
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Brand Identity */}
-          <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold tracking-widest text-amber-500 hover:text-amber-400 transition-colors">
-              LUCY HOTEL
-            </Link>
-          </div>
-          
-          {/* Desktop Navigation View */}
-          <div className="hidden md:flex items-center space-x-8 font-medium tracking-wide text-xs">
-            <Link to="/" className="hover:text-amber-500 transition-colors">HOME</Link>
-            <a href="/#about" className="hover:text-amber-500 transition-colors">ABOUT</a>
-            
-            {/* Desktop Services Dropdown */}
-            <div className="relative">
-              <button 
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="flex items-center space-x-1 hover:text-amber-500 transition-colors focus:outline-none uppercase"
+
+        <div className="flex items-center justify-between">
+
+
+          <Link
+            to="/"
+            className="focus:outline-none focus:ring-1 focus:ring-hotel-gold"
+          >
+
+            <span className="
+              text-xl sm:text-2xl
+              font-serif
+              tracking-[0.25em]
+              text-white
+            ">
+
+              {hotelConfig.brand.name}
+
+            </span>
+
+
+            <span className="
+              block
+              text-[8px]
+              tracking-[0.4em]
+              uppercase
+              text-gray-400
+              mt-1
+            ">
+
+              {hotelConfig.brand.tagline}
+
+            </span>
+
+
+          </Link>
+
+
+
+          <div className="hidden md:flex items-center space-x-8">
+
+            {navItems.map((item,index)=>(
+
+              <button
+                key={index}
+                onClick={() =>
+                  handleNavigation(
+                    item.path,
+                    item.anchor
+                  )
+                }
+                className="
+                  text-xs uppercase
+                  tracking-luxury
+                  text-gray-300
+                  hover:text-white
+                  transition
+                  relative py-2
+                  group
+                "
               >
-                <span>SERVICES</span>
-                <ChevronDown className={`w-3.5 h-3.5 transform transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+
+                {item.label}
+
+                <span className="
+                  absolute bottom-0 left-0
+                  w-0 h-[1px]
+                  bg-hotel-gold
+                  transition-all
+                  duration-300
+                  group-hover:w-full
+                "/>
+
               </button>
-              
-              {isServicesOpen && (
-                <div className="absolute left-0 mt-2 w-56 bg-white text-gray-900 rounded-md shadow-lg py-2 z-50 border border-gray-200">
-                  {services.map((service) => 
-                    service.isHash ? (
-                      <a
-                        key={service.name}
-                        href={service.path}
-                        className="block px-4 py-2 text-sm hover:bg-amber-50 hover:text-amber-600 transition-colors font-normal"
-                        onClick={() => setIsServicesOpen(false)}
-                      >
-                        {service.name}
-                      </a>
-                    ) : (
-                      <Link
-                        key={service.name}
-                        to={service.path}
-                        className="block px-4 py-2 text-sm hover:bg-amber-50 hover:text-amber-600 transition-colors font-normal"
-                        onClick={() => setIsServicesOpen(false)}
-                      >
-                        {service.name}
-                      </Link>
-                    )
-                  )}
-                </div>
-              )}
-            </div>
 
-            <Link to="/rooms" className="hover:text-amber-500 transition-colors">ROOMS</Link>
-            <a href="/#booking" className="hover:text-amber-500 transition-colors flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" /> BOOKING
-            </a>
-            <a href="/#contact" className="hover:text-amber-500 transition-colors">CONTACT</a>
+            ))}
+
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <div className="md:hidden flex items-center">
+
+
+          <div className="hidden md:flex items-center gap-6">
+
+            <LanguageSwitcher />
+
+
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-white focus:outline-none"
-              aria-label="Toggle Menu"
+              onClick={() =>
+                handleNavigation("/","booking")
+              }
+              className="
+                flex items-center gap-2
+                bg-hotel-gold
+                text-hotel-obsidian
+                px-5 py-3
+                text-xs font-semibold
+                uppercase
+                tracking-luxury
+                rounded-sm
+                hover:bg-hotel-goldLight
+                transition
+              "
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+
+              <Calendar className="w-4 h-4"/>
+
+              {safeT(
+                "nav.bookNow",
+                "Book Your Stay"
+              )}
+
             </button>
+
+
           </div>
+
+
+
+          <div className="md:hidden flex items-center gap-4">
+
+            <LanguageSwitcher />
+
+
+            <button
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-300"
+            >
+
+              {
+                isOpen
+                ?
+                <X />
+                :
+                <Menu />
+              }
+
+            </button>
+
+
+          </div>
+
+
         </div>
+
       </div>
 
-      {/* Mobile Drawer Menu Layer */}
-      {isOpen && (
-        <div className="md:hidden bg-[#11141A] px-4 pt-2 pb-6 space-y-1 border-t border-gray-800 font-semibold tracking-wider text-sm">
-          <Link to="/" className="block text-gray-300 hover:text-amber-500 py-2.5" onClick={() => setIsOpen(false)}>HOME</Link>
-          <a href="/#about" className="block text-gray-300 hover:text-white py-2.5" onClick={() => setIsOpen(false)}>ABOUT</a>
-          
-          {/* Expandable Services Section Container */}
-          <div>
-            <button
-              onClick={() => setIsServicesOpen(!isServicesOpen)}
-              className="flex items-center justify-between w-full text-amber-500 py-2.5 focus:outline-none"
-            >
-              <span>SERVICES</span>
-              <ChevronDown className={`w-4 h-4 transform transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {isServicesOpen && (
-              <div className="mt-1 mb-2 bg-white text-gray-900 rounded-sm shadow-xl py-2 px-4 space-y-3 animate-fadeIn">
-                {services.map((service) => 
-                  service.isHash ? (
-                    <a
-                      key={service.name}
-                      href={service.path}
-                      className="block text-base font-normal text-gray-800 hover:text-amber-600 py-1.5 border-b border-gray-100 last:border-0"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setIsServicesOpen(false);
-                      }}
-                    >
-                      {service.name}
-                    </a>
-                  ) : (
-                    <Link
-                      key={service.name}
-                      to={service.path}
-                      className="block text-base font-normal text-gray-800 hover:text-amber-600 py-1.5 border-b border-gray-100 last:border-0"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setIsServicesOpen(false);
-                      }}
-                    >
-                      {service.name}
-                    </Link>
-                  )
-                )}
-              </div>
-            )}
-          </div>
 
-          <Link to="/rooms" className="block text-gray-300 hover:text-white py-2.5" onClick={() => setIsOpen(false)}>ROOMS</Link>
-          <a href="/#booking" className="block text-gray-300 hover:text-white py-2.5 flex items-center gap-2" onClick={() => setIsOpen(false)}>
-            <Calendar className="w-4 h-4" /> BOOKING
-          </a>
-          <a href="/#contact" className="block text-gray-300 hover:text-white py-2.5" onClick={() => setIsOpen(false)}>CONTACT</a>
+
+      {/* Mobile Navigation Drawer */}
+      <div
+        className={`
+          md:hidden absolute top-full left-0 w-full
+          bg-hotel-obsidian
+          border-b border-hotel-gold/20
+          px-6 py-6
+          transition-all duration-300
+          ${isOpen
+            ? "opacity-100 visible max-h-screen"
+            : "opacity-0 invisible max-h-0 overflow-hidden"
+          }
+        `}
+      >
+
+        <div className="flex flex-col space-y-2">
+
+          {navItems.map((item,index)=>(
+
+            <button
+              key={index}
+              onClick={() =>
+                handleNavigation(
+                  item.path,
+                  item.anchor
+                )
+              }
+              className="
+                text-left
+                py-3
+                text-sm
+                uppercase
+                tracking-widest
+                text-gray-300
+                hover:text-hotel-gold
+                border-b border-white/5
+              "
+            >
+              {item.label}
+            </button>
+
+          ))}
+
+
+          <button
+            onClick={() =>
+              handleNavigation("/","booking")
+            }
+            className="
+              mt-4
+              bg-hotel-gold
+              text-hotel-obsidian
+              py-3
+              uppercase
+              text-xs
+              font-semibold
+              tracking-widest
+            "
+          >
+            Book Your Stay
+          </button>
+
+
         </div>
-      )}
+
+      </div>
+
+
     </nav>
+
   );
-}
+
+};
+
+
+export default Navbar;
